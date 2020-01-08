@@ -10,8 +10,9 @@ class Camera:
         self.indent = 200
 
     def apply(self, obj):
-        obj.rect.x += self.dx / FPS
-        obj.rect.y += self.dy / FPS
+        obj.moving_rect[0] += self.dx / FPS
+        obj.moving_rect[1] += self.dy / FPS
+        obj.rect = pygame.Rect(obj.moving_rect)
         self.dx = 0
         self.dy = 0
 

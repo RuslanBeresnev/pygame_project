@@ -6,6 +6,7 @@ class Background(pygame.sprite.Sprite):
     def __init__(self, group, image, x, y):
         super().__init__(group)
         self.image = load_image(image)
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+        self.moving_rect = list(self.image.get_rect())
+        self.moving_rect[0] = x
+        self.moving_rect[1] = y
+        self.rect = pygame.Rect(self.moving_rect)
