@@ -6,7 +6,7 @@ from constants import FPS
 class Player(pygame.sprite.Sprite):
     def __init__(self, group, x, y, speed):
         super().__init__(group)
-        self.image = pygame.transform.scale(load_image('Главный персонаж - 0%.jpg'), (100, 100))
+        self.image = pygame.transform.scale(load_image('Main character (0%).jpg'), (100, 100))
         self.moving_rect = list(self.image.get_rect())
         self.moving_rect[0] = x
         self.moving_rect[1] = y
@@ -16,6 +16,9 @@ class Player(pygame.sprite.Sprite):
         self.blocked_sides = [False, False, False, False]
 
     def update(self):
+        self.moving()
+
+    def moving(self):
         if pygame.key.get_pressed()[pygame.K_w] and not self.blocked_sides[0]:
             self.moving_rect[1] -= self.speed / FPS
         if pygame.key.get_pressed()[pygame.K_s] and not self.blocked_sides[2]:

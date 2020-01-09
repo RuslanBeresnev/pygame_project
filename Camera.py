@@ -7,7 +7,7 @@ class Camera:
     def __init__(self):
         self.dx = 0
         self.dy = 0
-        self.indent = 200
+        self.indent = HEIGHT // 5
 
     def apply(self, obj):
         obj.moving_rect[0] += self.dx / FPS

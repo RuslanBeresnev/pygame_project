@@ -1,6 +1,6 @@
 import pygame
 import sys
-from constants import FPS, WIDTH, HEIGHT
+from constants import WIDTH, HEIGHT, FPS
 from Player import Player
 from Camera import Camera
 from Background import Background
@@ -8,21 +8,19 @@ from Background import Background
 
 class Main:
     def __init__(self):
-        pygame.init()
-        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
-
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.clock = pygame.time.Clock()
-        self.entitys = pygame.sprite.Group()
-
-        self.start_game()
+        self.entities = pygame.sprite.Group()
 
     def terminate_game(self):
         pygame.quit()
         sys.exit()
 
     def start_game(self):
-        background = Background(self.entitys, 'Фон с травой.jpg', -300, -300)
-        player = Player(self.entitys, 200, 200, 250)
+        background = Background(self.entities, 'Grass background.jpg', 100, -300)
+        player = Player(self.entities, 0, 0, 250)
+        player.moving_rect[0] = WIDTH / 2 - player.rect.w / 2
+        player.moving_rect[1] = HEIGHT / 2 - player.rect.h / 2
         camera = Camera()
 
         while True:
@@ -33,14 +31,11 @@ class Main:
                     self.terminate_game()
 
             camera.update(player)
-            for entity in self.entitys:
+            for entity in self.entities:
                 camera.apply(entity)
 
-            self.entitys.update()
-            self.entitys.draw(self.screen)
+            self.entities.update()
+            self.entities.draw(self.screen)
 
             pygame.display.flip()
             self.clock.tick(FPS)
-
-
-game = Main()
