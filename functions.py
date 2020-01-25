@@ -2,18 +2,14 @@ import pygame
 import os
 
 
-def load_image(name, colorkey=None):
+def load_image(name):
     fullname = os.path.join('data', name)
     image = pygame.image.load(fullname)
-
-    if colorkey is not None:
-        if colorkey == -1:
-            colorkey = image.get_at((0, 0))
-        image.set_colorkey(colorkey)
-    else:
-        image = image.convert_alpha()
-
     return image
+
+
+def get_full_file_name(name):
+    return os.path.join('data', name)
 
 
 def block_moving(object, side):
@@ -29,3 +25,8 @@ def block_moving(object, side):
 
 def unblock_moving(object):
     object.blocked_sides = [False, False, False, False]
+
+
+def set_objects_ticks(tick, *objects):
+    for obj in objects:
+        obj.tick = tick

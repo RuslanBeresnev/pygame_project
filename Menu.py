@@ -1,6 +1,6 @@
 import pygame
 from Button import Button
-from constants import WIDTH, HEIGHT, FPS
+from constants import WIDTH, HEIGHT
 from Main import Main
 from functions import load_image
 
@@ -17,7 +17,7 @@ class Menu:
         background_width = WIDTH
         background_height = int(WIDTH // 1.777)
         background_image = pygame.transform.scale(load_image('Menu background.jpg'), (background_width,
-                                                                                       background_height))
+                                                                                      background_height))
 
         logo_width = int(WIDTH * 0.75)
         logo_height = int(WIDTH * 0.09)
@@ -53,7 +53,6 @@ class Menu:
             self.screen.blit(logo_image, (logo_x, logo_y))
             self.buttons.draw(self.screen)
             pygame.display.flip()
-            self.clock.tick(FPS)
 
 
 menu = Menu()

@@ -1,5 +1,5 @@
 import pygame
-from constants import WIDTH, HEIGHT, FPS
+from constants import WIDTH, HEIGHT
 from functions import block_moving
 
 
@@ -8,15 +8,17 @@ class Camera:
         self.dx = 0
         self.dy = 0
         self.indent = HEIGHT // 5
+        self.tick = None
 
     def apply(self, obj):
-        obj.moving_rect[0] += self.dx / FPS
-        obj.moving_rect[1] += self.dy / FPS
+        obj.moving_rect[0] += self.dx * self.tick
+        obj.moving_rect[1] += self.dy * self.tick
         obj.rect = pygame.Rect(obj.moving_rect)
+
+    def update(self, target):
         self.dx = 0
         self.dy = 0
 
-    def update(self, target):
         if target.rect.y <= self.indent and pygame.key.get_pressed()[pygame.K_w]:
             block_moving(target, 'top')
             self.dy = target.speed
