@@ -4,9 +4,10 @@ from functions import load_image, unblock_moving
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, group, x, y, speed):
-        super().__init__(group)
-        self.width = 150
-        self.height = 150
+        super().__init__()
+        group.add(self)
+        self.width = 100
+        self.height = 100
 
         self.image = pygame.transform.scale(load_image('Main character (0%).jpg'), (self.width, self.height))
         self.moving_rect = list(self.image.get_rect())
