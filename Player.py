@@ -3,10 +3,11 @@ from functions import load_image, unblock_moving
 
 #добавить хп
 class Player(pygame.sprite.Sprite):
-    def __init__(self, group, x, y, speed, hp):
-        super().__init__(group)
-        self.width = 150
-        self.height = 150
+    def __init__(self, group, x, y, speed):
+        super().__init__()
+        group.add(self)
+        self.width = 100
+        self.height = 100
 
         self.image = pygame.transform.scale(load_image('Main character (0%).jpg'), (self.width, self.height))
         self.moving_rect = list(self.image.get_rect())
@@ -17,8 +18,6 @@ class Player(pygame.sprite.Sprite):
         self.tick = None
         self.speed = speed
         self.blocked_sides = [False, False, False, False]
-
-        self.hp = hp
 
     def update(self):
         self.moving()
