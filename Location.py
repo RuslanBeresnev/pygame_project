@@ -6,11 +6,13 @@ from Group import Group
 
 
 class Location:
-    def __init__(self, filename, objects_group, type, start_pos_x, start_pos_y, sheet=None):
+    def __init__(self, filename, objects_group, type, start_pos_x, start_pos_y, speed, collider_group=None, sheet=None):
         self.objects_group = objects_group
+        self.collider_group = collider_group
         self.type = type
         self.start_pos_x = start_pos_x
         self.start_pos_y = start_pos_y
+        self.speed = speed
         self.sheet = sheet
 
         self.filename = get_full_file_name(filename)
@@ -37,18 +39,15 @@ class Location:
             for j in range(len(self.map[i])):
                 if self.type == 'surface':
                     if self.map[i][j] == 'ffff':
-                        location_object = Cell(self.objects_group, 'field', x, y)
+                        location_object = Cell(self.objects_group, 'field', x, y, self.speed)
                     elif self.map[i][j] == 'pppp':
-                        location_object = Cell(self.objects_group, 'pebbles', x, y)
+                        location_object = Cell(self.objects_group, 'pebbles', x, y, self.speed)
                     elif self.map[i][j] == 'psps':
-                        location_object = Cell(self.objects_group, 'paving stones', x, y)
+                        location_object = Cell(self.objects_group, 'paving stones', x, y, self.speed)
                     elif self.map[i][j] == 'pswg':
-                        location_object = Cell(self.objects_group, 'paving stones with grass', x, y)
+                        location_object = Cell(self.objects_group, 'paving stones with grass', x, y, self.speed)
                     elif self.map[i][j] == 'tttt':
-                        location_object = Cell(self.objects_group, 'trail', x, y)
-
-                    location_object.moving_rect[0] = x
-                    location_object.moving_rect[1] = y
+                        location_object = Cell(self.objects_group, 'trail', x, y, self.speed)
                 elif self.type == 'terrain':
                     if self.map[i][j] == '....':
                         x += Cell.width
@@ -72,11 +71,8 @@ class Location:
         stem_width = int(image.get_width() / 3.5)
         spawn_x = random.randint(cell_x - int((spruce_width - stem_width) / 2), cell_x + Cell.width - stem_width)
         spawn_y = random.randint(cell_y - spruce_height, cell_y + Cell.height - spruce_height)
-        spruce = TerrainObject(self.objects_group, 'spruce', spawn_x, spawn_y,
-                               spruce_width, spruce_height)
-
-        spruce.moving_rect[0] = spawn_x
-        spruce.moving_rect[1] = spawn_y
+        spruce = TerrainObject(self.objects_group, self.collider_group, 'spruce', spawn_x, spawn_y,
+                               spruce_width, spruce_height, self.speed)
 
         return spruce
 

@@ -10,13 +10,15 @@ class Cell(pygame.sprite.Sprite):
                    'paving stones with grass': load_image('Paving stones with grass cell.jpg'),
                    'trail': load_image('Trail cell.jpg')}
 
-    def __init__(self, group, type, x, y):
+    def __init__(self, group, type, x, y, speed):
         super().__init__()
         group.add(self)
         self.type = type
+        self.speed = speed
 
         self.image = pygame.transform.scale(Cell.cell_images[self.type], (self.width, self.height))
         self.moving_rect = list(self.image.get_rect())
         self.moving_rect[0] = x
         self.moving_rect[1] = y
         self.rect = pygame.Rect(self.moving_rect)
+        self.collider = None

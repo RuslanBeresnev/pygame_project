@@ -20,6 +20,17 @@ class Group:
     def clear(self):
         self.sprites = []
 
+    def swap_groups(self, group):
+        self_copy = self.get_sprites().copy()
+
+        self.clear()
+        for sprite in group.get_sprites():
+            self.add(sprite)
+
+        group.clear()
+        for sprite in self_copy:
+            group.add(sprite)
+
     def update(self):
         for sprite in self.sprites:
             sprite.update()

@@ -41,7 +41,7 @@ class Menu:
 
         while True:
             for event in pygame.event.get():
-                if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if exit_button.rect.collidepoint(event.pos):
                         game.terminate_game()
                     elif start_button.rect.collidepoint(event.pos):
