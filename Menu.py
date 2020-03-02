@@ -30,10 +30,7 @@ class Menu:
         start_button_x, start_button_y = WIDTH // 2 - buttons_width // 2, HEIGHT // 2.25
         start_button = Button(self.buttons, 'Start game button.png', start_button_x, start_button_y,
                               buttons_width, buttons_height)
-        settings_button_x, settings_button_y = WIDTH // 2 - buttons_width // 2, HEIGHT // 1.64
-        settings_button = Button(self.buttons, 'Settings button.png', settings_button_x, settings_button_y,
-                                 buttons_width, buttons_height)
-        exit_button_x, exit_button_y = WIDTH // 2 - buttons_width // 2, HEIGHT // 1.29
+        exit_button_x, exit_button_y = WIDTH // 2 - buttons_width // 2, HEIGHT // 1.5
         exit_button = Button(self.buttons, 'Exit game button.png', exit_button_x, exit_button_y,
                              buttons_width, buttons_height)
 
@@ -46,8 +43,6 @@ class Menu:
                         game.terminate_game()
                     elif start_button.rect.collidepoint(event.pos):
                         game.start_game()
-                    elif settings_button.rect.collidepoint(event.pos):
-                        pass
 
             self.screen.blit(background_image, (0, 0))
             self.screen.blit(logo_image, (logo_x, logo_y))

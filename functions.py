@@ -60,29 +60,6 @@ def draw_group_contour(group, color, thickness):
         pygame.draw.rect(SCREEN, pygame.Color(color), sprite.rect, thickness)
 
 
-def shift_sprite(sprite, verdict):
-    if 'top' in verdict[0]:
-        sprite.moving_rect[1] += verdict[1]
-        if sprite.collider is not None:
-            sprite.collider.moving_rect[1] += verdict[1]
-    elif 'bottom' in verdict[0]:
-        sprite.moving_rect[1] -= verdict[1]
-        if sprite.collider is not None:
-            sprite.collider.moving_rect[1] -= verdict[1]
-    if 'left' in verdict[0]:
-        sprite.moving_rect[0] += verdict[1]
-        if sprite.collider is not None:
-            sprite.collider.moving_rect[0] -= verdict[1]
-    elif 'right' in verdict[0]:
-        sprite.moving_rect[0] -= verdict[1]
-        if sprite.collider is not None:
-            sprite.collider.moving_rect[0] -= verdict[1]
-
-    sprite.rect = pygame.Rect(sprite.moving_rect)
-    if sprite.collider is not None:
-        sprite.collider.rect = pygame.Rect(sprite.collider.moving_rect)
-
-
 def check_colliders(moving_colliders, static_colliders, frame_tick, clearing=False, camera=None, location_groups=None):
     global previous_collide_verdicts
     current_verdicts = []
@@ -137,14 +114,8 @@ def check_colliders(moving_colliders, static_colliders, frame_tick, clearing=Fal
                     else:
                         for location_group in location_groups:
                             for sprite in location_group.get_sprites():
-                                # print(sprite.collider)
-                                # print(moving_collider)
-                                # print('--------------------------------')
                                 if sprite.collider == moving_collider:
                                     moving_collider.make_collide(verdict[0], verdict[1], camera=camera)
-                                else:
-                                    #print(verdict[1])
-                                    shift_sprite(sprite, verdict)
                 elif len(verdict) == 3:
                     if camera is None:
                         moving_collider.make_collide(verdict[0], verdict[1], blocked_sides=verdict[2])
@@ -154,8 +125,6 @@ def check_colliders(moving_colliders, static_colliders, frame_tick, clearing=Fal
                                 if sprite.collider == moving_collider:
                                     moving_collider.make_collide(verdict[0], verdict[1], blocked_sides=verdict[2],
                                                                  camera=camera)
-                                else:
-                                    shift_sprite(sprite, verdict)
 
             static_colliders_iterator += 1
 

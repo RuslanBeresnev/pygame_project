@@ -62,7 +62,7 @@ class Camera:
             if not target.direction_sides:
                 camera_works = True
         if target.rect.x <= self.indent:
-            if 'bottom' in target.direction_sides:
+            if 'left' in target.direction_sides:
                 block_side(target, 'left')
                 self.dx = target.speed * self.tick
                 self.direction_sides.append('right')
@@ -75,7 +75,7 @@ class Camera:
                 self.dx = -target.speed * self.tick
                 self.direction_sides.append('left')
                 camera_works = True
-            if not target.dirrection_sides:
+            if not target.direction_sides:
                 camera_works = True
 
         return camera_works
